@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Earnings Calculator</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --danger-color: #ea4335;
+            --warning-color: #1d2146;
+            --text-color: #333;
+            --bg-color: #ffffff;
+            --card-bg: #fff;
+            --input-bg: #fff;
+            --border-color: #ddd;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-color: #8ab4f8;
+            --secondary-color: #81c995;
+            --danger-color: #f28b82;
+            --warning-color: #1d2146;
+            --text-color: #e8eaed;
+            --bg-color: #202124;
+            --card-bg: #2d2e30;
+            --input-bg: #3c4043;
+            --border-color: #5f6368;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            justify-content: space-between;
+        }
+
+        .tab {
+            padding: 10px 74px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .tab.active {
+            background: var(--warning-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .tab:hover:not(.active) {
+            background: var(--input-bg);
+        }
+
+        .calculator-container {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        .calculator-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            font-weight: 400;
+            gap: 10px;
+        }
+
+        .calculator-title i {
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+        }
+
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .range-container input[type="range"] {
+            flex: 1;
+            padding: 0;
+            height: 8px;
+            -webkit-appearance: none;
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .range-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .range-value {
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: var(--text-color);
+            color: #ffffff;
+            color: var(--bg-color);
+            border: none;
+            margin-left: 450px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .result-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(66, 133, 244, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            display: none;
+        }
+
+        .result-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .result-item {
+            background: var(--input-bg);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .platform-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .calculator-title {
+                font-size: 1.3rem;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .theme-toggle {
+                align-self: flex-end;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1> Social Media Earnings Calculator</h1>
+                <p>Estimate your potential earnings from different platforms</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark Mode</span>
+            </button>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="youtube">YouTube</div>
+            <div class="tab" data-tab="website">Website</div>
+            <div class="tab" data-tab="facebook">Facebook</div>
+            <div class="tab" data-tab="instagram">Instagram</div>
+        </div>
+
+        <!-- YouTube Calculator -->
+        <div class="calculator-container active" id="youtube-calculator">
+            <h2 class="calculator-title">
+                <i class="fab fa-youtube" style="color: #FF0000;"></i>
+                YouTube Earnings Calculator
+            </h2>
+            <div class="form-group">
+                <label for="yt-views">Monthly Views</label>
+                <div class="range-container">
+                    <input type="range" id="yt-views" min="1000" max="10000000" step="1000" value="100000">
+                    <span class="range-value" id="yt-views-value">100,000</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="yt-cpm">Estimated CPM ($)</label>
+                <div class="range-container">
+                    <input type="range" id="yt-cpm" min="0.1" max="20" step="0.1" value="3">
+                    <span class="range-value" id="yt-cpm-value">$3.00</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="yt-ctr">Click-Through Rate (%)</label>
+                <div class="range-container">
+                    <input type="range" id="yt-ctr" min="0.1" max="10" step="0.1" value="2">
+                    <span class="range-value" id="yt-ctr-value">2.0%</span>
+                </div>
+            </div>
+            <button class="btn" id="calculate-yt">
+                <i class="fas fa-calculator"></i>
+                Calculate Earnings
+            </button>
+            <div class="result-container" id="yt-result">
+                <h3 class="result-title">Estimated Earnings</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Daily Earnings</div>
+                        <div class="result-value" id="yt-daily">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Weekly Earnings</div>
+                        <div class="result-value" id="yt-weekly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Monthly Earnings</div>
+                        <div class="result-value" id="yt-monthly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Yearly Earnings</div>
+                        <div class="result-value" id="yt-yearly">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Website Calculator -->
+        <div class="calculator-container" id="website-calculator">
+            <h2 class="calculator-title">
+                <i class="fas fa-globe" style="color: #4285f4;"></i>
+                Website Earnings Calculator
+            </h2>
+            <div class="form-group">
+                <label for="web-visitors">Monthly Visitors</label>
+                <div class="range-container">
+                    <input type="range" id="web-visitors" min="1000" max="10000000" step="1000" value="50000">
+                    <span class="range-value" id="web-visitors-value">50,000</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="web-rpm">Estimated RPM ($)</label>
+                <div class="range-container">
+                    <input type="range" id="web-rpm" min="0.1" max="50" step="0.1" value="10">
+                    <span class="range-value" id="web-rpm-value">$10.00</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="web-ads">Ad Placement</label>
+                <select id="web-ads">
+                    <option value="1">Basic (1 ad per page)</option>
+                    <option value="2" selected>Standard (2-3 ads per page)</option>
+                    <option value="3">Aggressive (4+ ads per page)</option>
+                </select>
+            </div>
+            <button class="btn" id="calculate-web">
+                <i class="fas fa-calculator"></i>
+                Calculate Earnings
+            </button>
+            <div class="result-container" id="web-result">
+                <h3 class="result-title">Estimated Earnings</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Daily Earnings</div>
+                        <div class="result-value" id="web-daily">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Weekly Earnings</div>
+                        <div class="result-value" id="web-weekly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Monthly Earnings</div>
+                        <div class="result-value" id="web-monthly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Yearly Earnings</div>
+                        <div class="result-value" id="web-yearly">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facebook Calculator -->
+        <div class="calculator-container" id="facebook-calculator">
+            <h2 class="calculator-title">
+                <i class="fab fa-facebook" style="color: #1877f2;"></i>
+                Facebook Earnings Calculator
+            </h2>
+            <div class="form-group">
+                <label for="fb-followers">Page Followers</label>
+                <div class="range-container">
+                    <input type="range" id="fb-followers" min="1000" max="10000000" step="1000" value="10000">
+                    <span class="range-value" id="fb-followers-value">10,000</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fb-engagement">Engagement Rate (%)</label>
+                <div class="range-container">
+                    <input type="range" id="fb-engagement" min="0.1" max="10" step="0.1" value="3">
+                    <span class="range-value" id="fb-engagement-value">3.0%</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fb-cpm">Estimated CPM ($)</label>
+                <div class="range-container">
+                    <input type="range" id="fb-cpm" min="0.1" max="20" step="0.1" value="5">
+                    <span class="range-value" id="fb-cpm-value">$5.00</span>
+                </div>
+            </div>
+            <button class="btn" id="calculate-fb">
+                <i class="fas fa-calculator"></i>
+                Calculate Earnings
+            </button>
+            <div class="result-container" id="fb-result">
+                <h3 class="result-title">Estimated Earnings</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Per Post Earnings</div>
+                        <div class="result-value" id="fb-per-post">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Weekly Earnings (5 posts)</div>
+                        <div class="result-value" id="fb-weekly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Monthly Earnings (20 posts)</div>
+                        <div class="result-value" id="fb-monthly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Yearly Earnings</div>
+                        <div class="result-value" id="fb-yearly">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Calculator -->
+        <div class="calculator-container" id="instagram-calculator">
+            <h2 class="calculator-title">
+                <i class="fab fa-instagram" style="color: #e1306c;"></i>
+                Instagram Earnings Calculator
+            </h2>
+            <div class="form-group">
+                <label for="ig-followers">Followers</label>
+                <div class="range-container">
+                    <input type="range" id="ig-followers" min="1000" max="10000000" step="1000" value="15000">
+                    <span class="range-value" id="ig-followers-value">15,000</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ig-engagement">Engagement Rate (%)</label>
+                <div class="range-container">
+                    <input type="range" id="ig-engagement" min="0.1" max="10" step="0.1" value="2.5">
+                    <span class="range-value" id="ig-engagement-value">2.5%</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ig-cpm">Estimated CPM ($)</label>
+                <div class="range-container">
+                    <input type="range" id="ig-cpm" min="0.1" max="50" step="0.1" value="8">
+                    <span class="range-value" id="ig-cpm-value">$8.00</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ig-posts">Posts Per Week</label>
+                <div class="range-container">
+                    <input type="range" id="ig-posts" min="1" max="14" step="1" value="7">
+                    <span class="range-value" id="ig-posts-value">7</span>
+                </div>
+            </div>
+            <button class="btn" id="calculate-ig">
+                <i class="fas fa-calculator"></i>
+                Calculate Earnings
+            </button>
+            <div class="result-container" id="ig-result">
+                <h3 class="result-title">Estimated Earnings</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Per Post Earnings</div>
+                        <div class="result-value" id="ig-per-post">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Weekly Earnings</div>
+                        <div class="result-value" id="ig-weekly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Monthly Earnings</div>
+                        <div class="result-value" id="ig-monthly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Yearly Earnings</div>
+                        <div class="result-value" id="ig-yearly">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Note: These calculations are estimates only. Actual earnings may vary based on many factors.</p>
+            <p>&copy; 2025 Earnings Calculator | All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        const themeText = themeToggle.querySelector('span');
+
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            themeText.textContent = 'Light Mode';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                themeText.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                themeText.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.tab');
+        const calculators = document.querySelectorAll('.calculator-container');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and calculators
+                tabs.forEach(t => t.classList.remove('active'));
+                calculators.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding calculator
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-calculator`).classList.add('active');
+            });
+        });
+
+        // Range Input Value Updates
+        function setupRangeInput(rangeId, valueId, formatFn) {
+            const rangeInput = document.getElementById(rangeId);
+            const valueElement = document.getElementById(valueId);
+            
+            // Initial update
+            valueElement.textContent = formatFn(rangeInput.value);
+            
+            // Update on change
+            rangeInput.addEventListener('input', () => {
+                valueElement.textContent = formatFn(rangeInput.value);
+            });
+        }
+
+        // Formatting functions
+        function formatNumber(value) {
+            return Number(value).toLocaleString();
+        }
+
+        function formatCurrency(value) {
+            return `$${Number(value).toFixed(2)}`;
+        }
+
+        function formatPercentage(value) {
+            return `${Number(value).toFixed(1)}%`;
+        }
+
+        // Setup all range inputs
+        setupRangeInput('yt-views', 'yt-views-value', formatNumber);
+        setupRangeInput('yt-cpm', 'yt-cpm-value', formatCurrency);
+        setupRangeInput('yt-ctr', 'yt-ctr-value', formatPercentage);
+        
+        setupRangeInput('web-visitors', 'web-visitors-value', formatNumber);
+        setupRangeInput('web-rpm', 'web-rpm-value', formatCurrency);
+        
+        setupRangeInput('fb-followers', 'fb-followers-value', formatNumber);
+        setupRangeInput('fb-engagement', 'fb-engagement-value', formatPercentage);
+        setupRangeInput('fb-cpm', 'fb-cpm-value', formatCurrency);
+        
+        setupRangeInput('ig-followers', 'ig-followers-value', formatNumber);
+        setupRangeInput('ig-engagement', 'ig-engagement-value', formatPercentage);
+        setupRangeInput('ig-cpm', 'ig-cpm-value', formatCurrency);
+        setupRangeInput('ig-posts', 'ig-posts-value', (value) => value);
+
+        // Calculation Functions
+        function calculateYouTubeEarnings() {
+            const views = document.getElementById('yt-views').value;
+            const cpm = document.getElementById('yt-cpm').value;
+            const ctr = document.getElementById('yt-ctr').value;
+            
+            // Basic calculation: (views / 1000) * CPM * (CTR / 100)
+            const monthlyEarnings = (views / 1000) * cpm * (ctr / 100);
+            
+            document.getElementById('yt-daily').textContent = formatCurrency(monthlyEarnings / 30);
+            document.getElementById('yt-weekly').textContent = formatCurrency(monthlyEarnings / 4);
+            document.getElementById('yt-monthly').textContent = formatCurrency(monthlyEarnings);
+            document.getElementById('yt-yearly').textContent = formatCurrency(monthlyEarnings * 12);
+            
+            document.getElementById('yt-result').classList.add('show');
+        }
+
+        function calculateWebsiteEarnings() {
+            const visitors = document.getElementById('web-visitors').value;
+            const rpm = document.getElementById('web-rpm').value;
+            const ads = document.getElementById('web-ads').value;
+            
+            // Basic calculation: (visitors / 1000) * RPM * ad multiplier
+            const adMultiplier = 1 + (ads * 0.3); // Adjust based on ad placement
+            const monthlyEarnings = (visitors / 1000) * rpm * adMultiplier;
+            
+            document.getElementById('web-daily').textContent = formatCurrency(monthlyEarnings / 30);
+            document.getElementById('web-weekly').textContent = formatCurrency(monthlyEarnings / 4);
+            document.getElementById('web-monthly').textContent = formatCurrency(monthlyEarnings);
+            document.getElementById('web-yearly').textContent = formatCurrency(monthlyEarnings * 12);
+            
+            document.getElementById('web-result').classList.add('show');
+        }
+
+        function calculateFacebookEarnings() {
+            const followers = document.getElementById('fb-followers').value;
+            const engagement = document.getElementById('fb-engagement').value;
+            const cpm = document.getElementById('fb-cpm').value;
+            
+            // Basic calculation: (followers * engagement% / 1000) * CPM
+            const perPostEarnings = (followers * engagement / 1000) * cpm;
+            
+            document.getElementById('fb-per-post').textContent = formatCurrency(perPostEarnings);
+            document.getElementById('fb-weekly').textContent = formatCurrency(perPostEarnings * 5);
+            document.getElementById('fb-monthly').textContent = formatCurrency(perPostEarnings * 20);
+            document.getElementById('fb-yearly').textContent = formatCurrency(perPostEarnings * 240);
+            
+            document.getElementById('fb-result').classList.add('show');
+        }
+
+        function calculateInstagramEarnings() {
+            const followers = document.getElementById('ig-followers').value;
+            const engagement = document.getElementById('ig-engagement').value;
+            const cpm = document.getElementById('ig-cpm').value;
+            const posts = document.getElementById('ig-posts').value;
+            
+            // Basic calculation: (followers * engagement% / 1000) * CPM
+            const perPostEarnings = (followers * engagement / 1000) * cpm;
+            
+            document.getElementById('ig-per-post').textContent = formatCurrency(perPostEarnings);
+            document.getElementById('ig-weekly').textContent = formatCurrency(perPostEarnings * posts);
+            document.getElementById('ig-monthly').textContent = formatCurrency(perPostEarnings * posts * 4);
+            document.getElementById('ig-yearly').textContent = formatCurrency(perPostEarnings * posts * 52);
+            
+            document.getElementById('ig-result').classList.add('show');
+        }
+
+        // Event Listeners for Calculate Buttons
+        document.getElementById('calculate-yt').addEventListener('click', calculateYouTubeEarnings);
+        document.getElementById('calculate-web').addEventListener('click', calculateWebsiteEarnings);
+        document.getElementById('calculate-fb').addEventListener('click', calculateFacebookEarnings);
+        document.getElementById('calculate-ig').addEventListener('click', calculateInstagramEarnings);
+
+        // Initialize with YouTube calculation
+        calculateYouTubeEarnings();
+    </script>
+</body>
+</html>
