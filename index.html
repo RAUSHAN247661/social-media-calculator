@@ -3,325 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate your potential earnings from YouTube, Facebook, Instagram, Snapchat, Twitter and websites with our free social media earnings calculator. Estimate daily, weekly, monthly, and yearly income.">
+    <meta name="keywords" content="social media earnings calculator, YouTube money calculator, Facebook earnings, Instagram income, Snapchat earnings, Twitter revenue, website ad revenue">
+    <meta name="author" content="Earnings Calculator">
+    <meta property="og:title" content="Social Media Earnings Calculator">
+    <meta property="og:description" content="Estimate your potential earnings from different social media platforms and websites.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/earnings-calculator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://example.com/earnings-calculator">
     <title>Social Media Earnings Calculator</title>
     <style>
         :root {
-            --primary-color: #4285f4;
-            --secondary-color: #34a853;
-            --danger-color: #ea4335;
-            --warning-color: #1d2146;
-            --text-color: #333;
-            --bg-color: #ffffff;
-            --card-bg: #fff;
-            --input-bg: #fff;
-            --border-color: #ddd;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
+    --primary-color: #4285f4;
+    --secondary-color: #34a853;
+    --danger-color: #ea4335;
+    --warning-color: #1d2146;
+    --text-color: #333;
+    --bg-color: #ffffff;
+    --card-bg: #fff;
+    --input-bg: #fff;
+    --border-color: #ddd;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
 
-        .dark-mode {
-            --primary-color: #8ab4f8;
-            --secondary-color: #81c995;
-            --danger-color: #f28b82;
-            --warning-color: #1d2146;
-            --text-color: #e8eaed;
-            --bg-color: #202124;
-            --card-bg: #2d2e30;
-            --input-bg: #3c4043;
-            --border-color: #5f6368;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
+.dark-mode {
+    --primary-color: #8ab4f8;
+    --secondary-color: #81c995;
+    --danger-color: #f28b82;
+    --warning-color: #1d2146;
+    --text-color: #e8eaed;
+    --bg-color: #202124;
+    --card-bg: #2d2e30;
+    --input-bg: #3c4043;
+    --border-color: #5f6368;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: var(--transition);
-            line-height: 1.6;
-        }
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: var(--transition);
+    line-height: 1.6;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        h1 {
-            font-size: 2.2rem;
-            color: var(--text-color);
-            margin-bottom: 10px;
-        }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
 
-        .theme-toggle {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 8px 15px;
-            border-radius: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
+h1 {
+    font-size: 2.2rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
 
-        .theme-toggle:hover {
-            background: var(--primary-color);
-            color: white;
-        }
+.theme-toggle {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
 
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            justify-content: space-between;
-        }
+.theme-toggle:hover {
+    background: var(--primary-color);
+    color: white;
+}
 
-        .tab {
-            padding: 10px 74px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            font-size: 30px;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    justify-content: space-between;
+}
 
-        .tab.active {
-            background: var(--warning-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
+.tab {
+    padding: 10px 50px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
 
-        .tab:hover:not(.active) {
-            background: var(--input-bg);
-        }
+.tab.active {
+    background: var(--warning-color);
+    color: white;
+    border-color: var(--primary-color);
+}
 
-        .calculator-container {
-            display: none;
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-            transition: var(--transition);
-        }
+.tab:hover:not(.active) {
+    background: var(--input-bg);
+}
 
-        .calculator-container.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
+.calculator-container {
+    display: none;
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    transition: var(--transition);
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.calculator-container.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
 
-        .calculator-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            font-weight: 400;
-            gap: 10px;
-        }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .calculator-title i {
-            font-size: 1.8rem;
-        }
+.calculator-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    gap: 10px;
+}
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+.calculator-title i {
+    font-size: 1.8rem;
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
+.form-group {
+    margin-bottom: 20px;
+}
 
-        input, select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            background: var(--input-bg);
-            color: var(--text-color);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
 
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
-        }
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: var(--transition);
+}
 
-        .range-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
 
-        .range-container input[type="range"] {
-            flex: 1;
-            padding: 0;
-            height: 8px;
-            -webkit-appearance: none;
-            background: var(--border-color);
-            border-radius: 4px;
-        }
+.range-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-        .range-container input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            cursor: pointer;
-        }
+.range-container input[type="range"] {
+    flex: 1;
+    padding: 0;
+    height: 8px;
+    -webkit-appearance: none;
+    background: var(--border-color);
+    border-radius: 4px;
+}
 
-        .range-value {
-            min-width: 50px;
-            text-align: center;
-            font-weight: bold;
-        }
+.range-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
 
-        .btn {
-            background: var(--text-color);
-            color: #ffffff;
-            color: var(--bg-color);
-            border: none;
-            margin-left: 450px;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+.range-value {
+    min-width: 50px;
+    text-align: center;
+    font-weight: bold;
+}
 
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
+.btn {
+    background: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+}
 
-        .result-container {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(66, 133, 244, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-color);
-            display: none;
-        }
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
 
-        .result-container.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
+.result-container {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(66, 133, 244, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    display: none;
+}
 
-        .result-title {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
+.result-container.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
 
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
+.result-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
 
-        .result-item {
-            background: var(--input-bg);
-            padding: 15px;
-            border-radius: 6px;
-        }
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
 
-        .result-label {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
+.result-item {
+    background: var(--input-bg);
+    padding: 15px;
+    border-radius: 6px;
+}
 
-        .result-value {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
+.result-label {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
 
-        .platform-icon {
-            width: 24px;
-            height: 24px;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 5px;
-        }
+.result-value {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
 
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-color);
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
+.platform-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .calculator-title {
-                font-size: 1.3rem;
-            }
-            
-            .result-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
 
-        @media (max-width: 480px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .theme-toggle {
-                align-self: flex-end;
-            }
-            
-            .tabs {
-                flex-wrap: wrap;
-            }
-        }
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .tab {
+        padding: 10px 30px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 992px) {
+    .tabs {
+        justify-content: flex-start;
+    }
+    
+    .tab {
+        padding: 10px 25px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .calculator-title {
+        font-size: 1.3rem;
+    }
+    
+    .result-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .tab {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+    
+    .btn {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .theme-toggle {
+        align-self: flex-end;
+    }
+    
+    .tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        padding: 6px 15px;
+        font-size: 13px;
+    }
+    
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .calculator-container {
+        padding: 15px;
+    }
+    
+    .calculator-title {
+        font-size: 1.2rem;
+    }
+    
+    .calculator-title i {
+        font-size: 1.5rem;
+    }
+    
+    input, select {
+        padding: 10px 12px;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .tab {
+        padding: 3px 13px;
+        font-size: 19px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    .calculator-title {
+        font-size: 1.1rem;
+    }
+    
+    .range-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .range-container input[type="range"] {
+        width: 100%;
+    }
+}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -329,7 +422,7 @@
     <div class="container">
         <header>
             <div>
-                <h1> Social Media Earnings Calculator</h1>
+                <h1>Social Media Earnings Calculator</h1>
                 <p>Estimate your potential earnings from different platforms</p>
             </div>
             <button class="theme-toggle" id="themeToggle">
@@ -343,6 +436,8 @@
             <div class="tab" data-tab="website">Website</div>
             <div class="tab" data-tab="facebook">Facebook</div>
             <div class="tab" data-tab="instagram">Instagram</div>
+            <div class="tab" data-tab="snapchat">Snapchat</div>
+            <div class="tab" data-tab="twitter">Twitter</div>
         </div>
 
         <!-- YouTube Calculator -->
@@ -569,6 +664,128 @@
             </div>
         </div>
 
+        <!-- Snapchat Calculator -->
+        <div class="calculator-container" id="snapchat-calculator">
+            <h2 class="calculator-title">
+                <i class="fab fa-snapchat" style="color: #FFFC00;"></i>
+                Snapchat Earnings Calculator
+            </h2>
+            <div class="form-group">
+                <label for="sc-subscribers">Subscribers</label>
+                <div class="range-container">
+                    <input type="range" id="sc-subscribers" min="1000" max="10000000" step="1000" value="20000">
+                    <span class="range-value" id="sc-subscribers-value">20,000</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sc-views">Daily Story Views</label>
+                <div class="range-container">
+                    <input type="range" id="sc-views" min="100" max="1000000" step="100" value="5000">
+                    <span class="range-value" id="sc-views-value">5,000</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sc-cpm">Estimated CPM ($)</label>
+                <div class="range-container">
+                    <input type="range" id="sc-cpm" min="0.1" max="30" step="0.1" value="5">
+                    <span class="range-value" id="sc-cpm-value">$5.00</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sc-engagement">Engagement Rate (%)</label>
+                <div class="range-container">
+                    <input type="range" id="sc-engagement" min="0.1" max="20" step="0.1" value="8">
+                    <span class="range-value" id="sc-engagement-value">8.0%</span>
+                </div>
+            </div>
+            <button class="btn" id="calculate-sc">
+                <i class="fas fa-calculator"></i>
+                Calculate Earnings
+            </button>
+            <div class="result-container" id="sc-result">
+                <h3 class="result-title">Estimated Earnings</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Daily Earnings</div>
+                        <div class="result-value" id="sc-daily">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Weekly Earnings</div>
+                        <div class="result-value" id="sc-weekly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Monthly Earnings</div>
+                        <div class="result-value" id="sc-monthly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Yearly Earnings</div>
+                        <div class="result-value" id="sc-yearly">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Twitter Calculator -->
+        <div class="calculator-container" id="twitter-calculator">
+            <h2 class="calculator-title">
+                <i class="fab fa-twitter" style="color: #1DA1F2;"></i>
+                Twitter Earnings Calculator
+            </h2>
+            <div class="form-group">
+                <label for="tw-followers">Followers</label>
+                <div class="range-container">
+                    <input type="range" id="tw-followers" min="1000" max="10000000" step="1000" value="25000">
+                    <span class="range-value" id="tw-followers-value">25,000</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tw-engagement">Engagement Rate (%)</label>
+                <div class="range-container">
+                    <input type="range" id="tw-engagement" min="0.1" max="10" step="0.1" value="1.5">
+                    <span class="range-value" id="tw-engagement-value">1.5%</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tw-cpm">Estimated CPM ($)</label>
+                <div class="range-container">
+                    <input type="range" id="tw-cpm" min="0.1" max="20" step="0.1" value="6">
+                    <span class="range-value" id="tw-cpm-value">$6.00</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tw-posts">Tweets Per Week</label>
+                <div class="range-container">
+                    <input type="range" id="tw-posts" min="1" max="50" step="1" value="15">
+                    <span class="range-value" id="tw-posts-value">15</span>
+                </div>
+            </div>
+            <button class="btn" id="calculate-tw">
+                <i class="fas fa-calculator"></i>
+                Calculate Earnings
+            </button>
+            <div class="result-container" id="tw-result">
+                <h3 class="result-title">Estimated Earnings</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Per Tweet Earnings</div>
+                        <div class="result-value" id="tw-per-tweet">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Weekly Earnings</div>
+                        <div class="result-value" id="tw-weekly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Monthly Earnings</div>
+                        <div class="result-value" id="tw-monthly">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Yearly Earnings</div>
+                        <div class="result-value" id="tw-yearly">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <footer>
             <p>Note: These calculations are estimates only. Actual earnings may vary based on many factors.</p>
             <p>&copy; 2025 Earnings Calculator | All Rights Reserved</p>
@@ -670,6 +887,16 @@
         setupRangeInput('ig-engagement', 'ig-engagement-value', formatPercentage);
         setupRangeInput('ig-cpm', 'ig-cpm-value', formatCurrency);
         setupRangeInput('ig-posts', 'ig-posts-value', (value) => value);
+        
+        setupRangeInput('sc-subscribers', 'sc-subscribers-value', formatNumber);
+        setupRangeInput('sc-views', 'sc-views-value', formatNumber);
+        setupRangeInput('sc-cpm', 'sc-cpm-value', formatCurrency);
+        setupRangeInput('sc-engagement', 'sc-engagement-value', formatPercentage);
+        
+        setupRangeInput('tw-followers', 'tw-followers-value', formatNumber);
+        setupRangeInput('tw-engagement', 'tw-engagement-value', formatPercentage);
+        setupRangeInput('tw-cpm', 'tw-cpm-value', formatCurrency);
+        setupRangeInput('tw-posts', 'tw-posts-value', (value) => value);
 
         // Calculation Functions
         function calculateYouTubeEarnings() {
@@ -738,11 +965,47 @@
             document.getElementById('ig-result').classList.add('show');
         }
 
+        function calculateSnapchatEarnings() {
+            const subscribers = document.getElementById('sc-subscribers').value;
+            const views = document.getElementById('sc-views').value;
+            const cpm = document.getElementById('sc-cpm').value;
+            const engagement = document.getElementById('sc-engagement').value;
+            
+            // Basic calculation: (views / 1000) * CPM * (engagement / 100)
+            const dailyEarnings = (views / 1000) * cpm * (engagement / 100);
+            
+            document.getElementById('sc-daily').textContent = formatCurrency(dailyEarnings);
+            document.getElementById('sc-weekly').textContent = formatCurrency(dailyEarnings * 7);
+            document.getElementById('sc-monthly').textContent = formatCurrency(dailyEarnings * 30);
+            document.getElementById('sc-yearly').textContent = formatCurrency(dailyEarnings * 365);
+            
+            document.getElementById('sc-result').classList.add('show');
+        }
+
+        function calculateTwitterEarnings() {
+            const followers = document.getElementById('tw-followers').value;
+            const engagement = document.getElementById('tw-engagement').value;
+            const cpm = document.getElementById('tw-cpm').value;
+            const posts = document.getElementById('tw-posts').value;
+            
+            // Basic calculation: (followers * engagement% / 1000) * CPM
+            const perTweetEarnings = (followers * engagement / 1000) * cpm;
+            
+            document.getElementById('tw-per-tweet').textContent = formatCurrency(perTweetEarnings);
+            document.getElementById('tw-weekly').textContent = formatCurrency(perTweetEarnings * posts);
+            document.getElementById('tw-monthly').textContent = formatCurrency(perTweetEarnings * posts * 4);
+            document.getElementById('tw-yearly').textContent = formatCurrency(perTweetEarnings * posts * 52);
+            
+            document.getElementById('tw-result').classList.add('show');
+        }
+
         // Event Listeners for Calculate Buttons
         document.getElementById('calculate-yt').addEventListener('click', calculateYouTubeEarnings);
         document.getElementById('calculate-web').addEventListener('click', calculateWebsiteEarnings);
         document.getElementById('calculate-fb').addEventListener('click', calculateFacebookEarnings);
         document.getElementById('calculate-ig').addEventListener('click', calculateInstagramEarnings);
+        document.getElementById('calculate-sc').addEventListener('click', calculateSnapchatEarnings);
+        document.getElementById('calculate-tw').addEventListener('click', calculateTwitterEarnings);
 
         // Initialize with YouTube calculation
         calculateYouTubeEarnings();
